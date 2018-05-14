@@ -71,6 +71,8 @@ class EvernoteClient(object):
         client = self._get_oauth_client(token)
 
         resp, content = client.request(self._get_endpoint('oauth'), 'POST')
+        logger.info("Resp from evernote: {}".format(resp))
+        logger.info("Content {}".format(content))
         access_token_dict = dict(urllib.parse.parse_qsl(content.decode('utf-8')))
         self.token = access_token_dict['oauth_token']
 
