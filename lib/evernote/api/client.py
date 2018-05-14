@@ -15,6 +15,11 @@ import evernote.edam.userstore.constants as UserStoreConstants
 import thrift.protocol.TBinaryProtocol as TBinaryProtocol
 import thrift.transport.THttpClient as THttpClient
 
+import logging
+
+
+logger = logging.getLogger(__name__)
+
 
 class EvernoteClient(object):
     def __init__(self, **options):
@@ -49,6 +54,7 @@ class EvernoteClient(object):
         )
 
         resp, content = client.request(request_url, 'GET')
+        logger.info("Resp from evernote: {}".format(resp))
         request_token = dict(urllib.parse.parse_qsl(content.decode('utf-8')))
         return request_token
 
